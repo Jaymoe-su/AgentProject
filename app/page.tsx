@@ -420,7 +420,7 @@ function WebDesignsSection() {
 function ContactSection() {
   const contactItems = [
     { label: 'EMAIL', value: 'b.jameson@defense.dev' },
-    { label: 'LINKEDIN', value: 'linkedin.com/in/benjaminjameson' },
+    { label: 'LINKEDIN', value: 'linkedin.com/in/benjaminjameson/' },
     { label: 'GITHUB', value: 'github.com/benjameson' },
     { label: 'LOCATION', value: 'Washington, D.C. Metro Area' },
   ];
