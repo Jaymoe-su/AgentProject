@@ -114,7 +114,7 @@ function NavBar() {
       <div className={styles.navInner}>
         {/* Left: callsign (no back button — this IS the root page) */}
         <div className={styles.navLeft}>
-          <span className={styles.navCallsign}>MORAN</span>
+          <span className={styles.navCallsign}>JAMESON</span>
           <span className={styles.navSlash}>//</span>
           <span className={styles.navLabel}>OPERATOR PROFILE</span>
         </div>
@@ -185,7 +185,7 @@ function HeroSection() {
 
           <div className={styles.identityBody}>
             <p className={styles.identityLabel}>OPERATOR DESIGNATION</p>
-            <h1 className={styles.identityName}>J. MORAN</h1>
+            <h1 className={styles.identityName}>B. JAMESON</h1>
             <p className={styles.identityRole}>Defense Technology Designer</p>
 
             <ul className={styles.specList} aria-label="Specializations">
@@ -419,9 +419,9 @@ function WebDesignsSection() {
 
 function ContactSection() {
   const contactItems = [
-    { label: 'EMAIL', value: 'j.moran@defense.dev' },
-    { label: 'LINKEDIN', value: 'linkedin.com/in/jmoran' },
-    { label: 'GITHUB', value: 'github.com/jmoran' },
+    { label: 'EMAIL', value: 'b.jameson@defense.dev' },
+    { label: 'LINKEDIN', value: 'linkedin.com/in/benjaminjameson' },
+    { label: 'GITHUB', value: 'github.com/benjameson' },
     { label: 'LOCATION', value: 'Washington, D.C. Metro Area' },
   ];
 
@@ -444,7 +444,7 @@ function ContactSection() {
                 <span className={`${styles.terminalDot} ${styles.terminalDotGreen}`} />
               </div>
               <span className={styles.terminalBarTitle}>
-                MORAN // BIOGRAPHICAL DATA
+                JAMESON // BIOGRAPHICAL DATA
               </span>
             </div>
             <div className={styles.terminalBody}>
@@ -526,7 +526,7 @@ export default function PersonalBrandPage() {
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <span className={styles.footerLeft}>
-            MORAN // ALL INFORMATION UNCLASSIFIED
+            JAMESON // ALL INFORMATION UNCLASSIFIED
           </span>
           <span className={styles.footerRight}>
             SYS.STATUS: ONLINE &nbsp;|&nbsp; BUILD: 2.4.1
