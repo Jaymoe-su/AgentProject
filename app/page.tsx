@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 
 // ---------------------------------------------------------------------------
@@ -106,6 +106,7 @@ function NavBar() {
     { label: 'OPS', href: '#projects' },
     { label: 'ASSETS', href: '#designs' },
     { label: 'WEB SYSTEMS', href: '#web' },
+    { label: 'INTEL', href: '#intel' },
     { label: 'COMMS', href: '#contact' },
   ];
 
@@ -414,6 +415,120 @@ function WebDesignsSection() {
 }
 
 // ---------------------------------------------------------------------------
+// INTEL FEED SECTION
+// ---------------------------------------------------------------------------
+
+type Post = {
+  id: string;
+  title: string;
+  content: string;
+  topic: string;
+  created_at: string;
+};
+
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  const day = String(d.getUTCDate()).padStart(2, '0');
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const month = months[d.getUTCMonth()];
+  const year = d.getUTCFullYear();
+  return `${day} ${month} ${year}`;
+}
+
+function IntelCard({ post }: { post: Post }) {
+  const [expanded, setExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    navigator.clipboard.writeText(post.content).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  return (
+    <article className={styles.intelCard}>
+      <div className={styles.intelCardHeader}>
+        <span className={styles.intelTopicBadge}>{post.topic}</span>
+        <span className={styles.intelDate}>{formatDate(post.created_at)}</span>
+      </div>
+
+      <div className={styles.intelCardBody}>
+        <h3 className={styles.intelTitle}>{post.title}</h3>
+        <p className={`${styles.intelContent} ${expanded ? '' : styles.intelContentClamped}`}>
+          {post.content}
+        </p>
+      </div>
+
+      <div className={styles.intelCardFooter}>
+        <button
+          className={styles.intelToggleBtn}
+          onClick={() => setExpanded((prev) => !prev)}
+          aria-expanded={expanded}
+        >
+          {expanded ? 'COLLAPSE' : 'EXPAND TRANSMISSION'}
+        </button>
+        <button
+          className={`${styles.intelCopyBtn} ${copied ? styles.intelCopied : ''}`}
+          onClick={handleCopy}
+          aria-label="Copy post content to clipboard"
+        >
+          {copied ? 'COPIED \u2713' : 'COPY TO CLIPBOARD'}
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function IntelFeedSection() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/posts')
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data.posts ?? []);
+      })
+      .catch(() => {
+        setPosts([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <section id="intel" className={styles.section}>
+      <div className={styles.sectionInner}>
+        <header className={styles.sectionHeader}>
+          <p className={styles.sectionSuper}>INTEL FEED</p>
+          <h2 className={styles.sectionTitle}>// LINKEDIN CONTENT</h2>
+          <div className={styles.sectionDivider} />
+        </header>
+
+        {loading ? (
+          <div className={styles.intelLoading}>
+            <span className={styles.intelLoadingDot} aria-hidden="true" />
+            <span className={styles.intelLoadingText}>LOADING INTEL...</span>
+          </div>
+        ) : posts.length === 0 ? (
+          <p className={styles.intelEmpty}>
+            NO TRANSMISSIONS LOGGED YET. CHECK BACK SOON.
+          </p>
+        ) : (
+          <div className={styles.intelGrid}>
+            {posts.map((post) => (
+              <IntelCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // CONTACT SECTION
 // ---------------------------------------------------------------------------
 
@@ -520,6 +635,7 @@ export default function PersonalBrandPage() {
       <ProjectsSection />
       <DesignsSection />
       <WebDesignsSection />
+      <IntelFeedSection />
       <ContactSection />
 
       {/* Footer */}

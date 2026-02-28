@@ -1242,6 +1242,197 @@
 }
 
 /* ===========================================================================
+   INTEL FEED SECTION
+   =========================================================================== */
+
+@keyframes intelPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.intelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.intelCard {
+  position: relative;
+  background: var(--hud-surface);
+  border-top: 3px solid rgba(255, 176, 0, 0.6);
+  border-right: 1px solid var(--hud-green-dim);
+  border-bottom: 1px solid var(--hud-green-dim);
+  border-left: 1px solid var(--hud-green-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.intelCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(255, 176, 0, 0.12);
+  border-top-color: var(--hud-amber);
+  border-right-color: var(--hud-border-strong);
+  border-bottom-color: var(--hud-border-strong);
+  border-left-color: var(--hud-border-strong);
+}
+
+.intelCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--hud-green-dim);
+  background: rgba(92, 63, 0, 0.15);
+}
+
+.intelTopicBadge {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: var(--hud-bg);
+  background: var(--hud-amber);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.intelDate {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 400;
+  color: var(--hud-gray-dim);
+  letter-spacing: 0.1em;
+}
+
+.intelCardBody {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.intelTitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--hud-white);
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.intelContent {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--hud-gray);
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.intelContentClamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.intelCardFooter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--hud-green-dim);
+  background: var(--hud-surface);
+  flex-wrap: wrap;
+}
+
+.intelToggleBtn {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: var(--hud-green);
+  background: none;
+  border: 1px solid var(--hud-green-dim);
+  padding: 0.3rem 0.65rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.intelToggleBtn:hover {
+  color: var(--hud-white);
+  border-color: var(--hud-green);
+}
+
+.intelCopyBtn {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: var(--hud-amber);
+  background: none;
+  border: 1px solid var(--hud-amber-dim);
+  padding: 0.3rem 0.65rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+
+.intelCopyBtn:hover {
+  background: rgba(92, 63, 0, 0.3);
+  border-color: var(--hud-amber);
+}
+
+.intelCopyBtn.intelCopied {
+  color: var(--hud-green);
+  border-color: var(--hud-green-dim);
+}
+
+/* Loading state */
+.intelLoading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem 0;
+}
+
+.intelLoadingText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--hud-amber);
+  letter-spacing: 0.15em;
+}
+
+.intelLoadingDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hud-amber);
+  animation: intelPulse 1.2s ease-in-out infinite;
+}
+
+/* Empty state */
+.intelEmpty {
+  padding: 3rem 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--hud-gray-dim);
+  letter-spacing: 0.15em;
+}
+
+/* ===========================================================================
    FOOTER
    =========================================================================== */
 
@@ -1321,6 +1512,10 @@
     grid-template-columns: 1fr;
   }
 
+  .intelGrid {
+    grid-template-columns: 1fr;
+  }
+
   .contactGrid {
     grid-template-columns: 1fr;
   }
@@ -1358,6 +1553,10 @@
     grid-template-columns: 1fr;
   }
 
+  .intelGrid {
+    grid-template-columns: 1fr;
+  }
+
   .section {
     padding: 2.5rem 1rem;
   }
@@ -1385,7 +1584,8 @@
   .identityCard,
   .statusDotActive,
   .onlineDot,
-  .terminalCursor {
+  .terminalCursor,
+  .intelLoadingDot {
     animation: none;
   }
 

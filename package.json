@@ -9,6 +9,8 @@
     "clean": "rm -rf .next"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@supabase/supabase-js": "^2.98.0",
     "next": "15.3.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
